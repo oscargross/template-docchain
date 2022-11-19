@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { AuthGuard } from './auth-guard';
 import { DashboardNavbar } from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
+import { Web3Context } from './../contexts/web3-context';
+import { WarnConnectWallet } from './warnConnectWallet';
+import { availableChains } from '../utils/props';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -15,22 +17,26 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   }
 }));
 
-export const DashboardLayout = (props) => {
-  const { children } = props;
+export const DashboardLayout = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const { account, chainId } = useContext(Web3Context)
 
   return (
-    <AuthGuard>
+    <div>
       <DashboardLayoutRoot>
         <Box
           sx={{
             display: 'flex',
             flex: '1 1 auto',
             flexDirection: 'column',
-            width: '100%'
+            width: '100%',
+            justifyContent: 'center',
           }}
         >
-          {children}
+          {account && Object.keys(availableChains).includes(chainId)
+            ? children
+            : <WarnConnectWallet />
+          }
         </Box>
       </DashboardLayoutRoot>
       <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
@@ -38,6 +44,6 @@ export const DashboardLayout = (props) => {
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
       />
-    </AuthGuard>
+    </div>
   );
 };

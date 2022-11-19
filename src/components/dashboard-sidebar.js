@@ -20,43 +20,47 @@ const items = [
   {
     href: '/',
     icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
+    title: 'Perfil'
+  },
+  {
+    // href: '/customers',
+    href: '/collection',
+    icon: (<UsersIcon fontSize="small" />),
+    title: 'Minhas Coleções'
   },
   {
     href: '/customers',
-    icon: (<UsersIcon fontSize="small" />),
-    title: 'Customers'
-  },
-  {
-    href: '/products',
-    icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Products'
-  },
-  {
-    href: '/account',
     icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
+    title: 'Documentos em andamento'
   },
   {
+    // href: '/products',
+    href: '/identification',
+    icon: (<ShoppingBagIcon fontSize="small" />),
+    title: 'Identificação'
+  },
+
+  {
+    // href: '/settings',
     href: '/settings',
     icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
+    title: 'Configurações'
   },
   {
-    href: '/login',
+    href: '/features',
     icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
+    title: 'Novos Recursos'
   },
-  {
-    href: '/register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Error'
-  }
+  // {
+  //   href: '/register',
+  //   icon: (<UserAddIcon fontSize="small" />),
+  //   title: 'Register'
+  // },
+  // {
+  //   href: '/404',
+  //   icon: (<XCircleIcon fontSize="small" />),
+  //   title: 'Error'
+  // }
 ];
 
 export const DashboardSidebar = (props) => {
@@ -92,22 +96,21 @@ export const DashboardSidebar = (props) => {
       >
         <div>
           <Box sx={{ p: 3 }}>
-            <NextLink
-              href="/"
-              passHref
-            >
-              <a>
-                <Logo
+            <img
+              src="/static/images/logo/name_2.png"
+              style={{ width: '220px' }}
+            />
+
+            {/* <Logo
                   sx={{
                     height: 42,
                     width: 42
                   }}
-                />
-              </a>
-            </NextLink>
+                /> */}
+
           </Box>
           <Box sx={{ px: 2 }}>
-            <Box
+            {/* <Box
               sx={{
                 alignItems: 'center',
                 backgroundColor: 'rgba(255, 255, 255, 0.04)',
@@ -142,7 +145,7 @@ export const DashboardSidebar = (props) => {
                   height: 14
                 }}
               />
-            </Box>
+            </Box> */}
           </Box>
         </div>
         <Divider
@@ -162,7 +165,7 @@ export const DashboardSidebar = (props) => {
           ))}
         </Box>
         <Divider sx={{ borderColor: '#2D3748' }} />
-        <Box
+        {/* <Box
           sx={{
             px: 2,
             py: 3
@@ -211,7 +214,7 @@ export const DashboardSidebar = (props) => {
               Pro Live Preview
             </Button>
           </NextLink>
-        </Box>
+        </Box> */}
       </Box>
     </>
   );

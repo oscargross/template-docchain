@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
+import { useRouter } from 'next/router';
+
 import {
   Avatar,
   Box,
@@ -13,45 +15,46 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
-import { getInitials } from '../../utils/get-initials';
-
-export const CustomerListResults = ({ customers, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+import LoginIcon from '@mui/icons-material/Login';
+import { NavItem } from '../nav-item';
+export const CollectionsListResults = ({ collections }) => {
+  const [selectedCollectionIds, setSelectedCollectionIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const router = useRouter();
 
   const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
+    let newSelectedCollectionIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
+      newSelectedCollectionIds = collections.map((collection) => collection.id);
     } else {
-      newSelectedCustomerIds = [];
+      newSelectedCollectionIds = [];
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
+    setSelectedCollectionIds(newSelectedCollectionIds);
   };
 
   const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
+    const selectedIndex = selectedCollectionIds.indexOf(id);
+    let newSelectedCollectionIds = [];
 
     if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
+      newSelectedCollectionIds = newSelectedCollectionIds.concat(selectedCollectionIds, id);
     } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
+      newSelectedCollectionIds = newSelectedCollectionIds.concat(selectedCollectionIds.slice(1));
+    } else if (selectedIndex === selectedCollectionIds.length - 1) {
+      newSelectedCollectionIds = newSelectedCollectionIds.concat(selectedCollectionIds.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
+      newSelectedCollectionIds = newSelectedCollectionIds.concat(
+        selectedCollectionIds.slice(0, selectedIndex),
+        selectedCollectionIds.slice(selectedIndex + 1)
       );
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
+    setSelectedCollectionIds(newSelectedCollectionIds);
   };
 
   const handleLimitChange = (event) => {
@@ -63,7 +66,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   };
 
   return (
-    <Card {...rest}>
+    <Card>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
@@ -71,11 +74,11 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
+                    checked={selectedCollectionIds.length === collections.length}
                     color="primary"
                     indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
+                      selectedCollectionIds.length > 0
+                      && selectedCollectionIds.length < collections.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -84,30 +87,31 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   Name
                 </TableCell>
                 <TableCell>
-                  Email
+                  Address
                 </TableCell>
                 <TableCell>
-                  Location
+                  Nº of SBTs
                 </TableCell>
                 <TableCell>
-                  Phone
+                  Creation date
                 </TableCell>
                 <TableCell>
-                  Registration date
+                  Access
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {collections.slice((limit * page), (limit * (page + 1))).map((collection) => (
+
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={collection.id}
+                  selected={selectedCollectionIds.indexOf(collection.id) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
+                      checked={selectedCollectionIds.indexOf(collection.id) !== -1}
+                      onChange={(event) => handleSelectOne(event, collection.id)}
                       value="true"
                     />
                   </TableCell>
@@ -118,31 +122,29 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      <Avatar
-                        src={customer.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(customer.name)}
-                      </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {collection.name}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {collection.id}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {collection.sbts}
                   </TableCell>
+
                   <TableCell>
-                    {customer.phone}
+                    {collection.date}
+                    {/* {format(collection.createdAt, 'dd/MM/yyyy')} */}
                   </TableCell>
-                  <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
+                  <TableCell onClick={() => {
+                    router.replace(collection.id)
+                  }} sx={{ cursor: 'pointer' }}>
+                    <LoginIcon />
                   </TableCell>
                 </TableRow>
               ))}
@@ -152,7 +154,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={collections.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -163,6 +165,6 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   );
 };
 
-CustomerListResults.propTypes = {
-  customers: PropTypes.array.isRequired
+CollectionsListResults.propTypes = {
+  collections: PropTypes.array.isRequired
 };

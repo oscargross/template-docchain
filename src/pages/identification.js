@@ -5,6 +5,7 @@ import { Box, Container } from '@mui/material';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { customers } from '../__mocks__/customers';
 
+
 const Page = () => (
   <>
     <Head>

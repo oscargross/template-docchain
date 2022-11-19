@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material';
+import { createTheme, useTheme } from '@mui/material';
 
 export const theme = createTheme({
   breakpoints: {
@@ -229,6 +229,7 @@ export const theme = createTheme({
     '0px 25px 50px rgba(100, 116, 139, 0.25)'
   ],
   typography: {
+    mode: 'dark',
     button: {
       fontWeight: 600
     },
