@@ -10,17 +10,17 @@ export const WarnConnectWallet = () => {
         flex: '1 1 auto',
         flexDirection: 'column',
         width: '100%',
-        // margin: 15,
+        margin: 10,
         justifyContent: 'center',
       }}
     >
       <Card sx={{ minWidth: 300, alignSelf: 'center', textAlign: 'center' }} elevation={15}>
         <CardContent >
           <Typography gutterBottom variant="h5" component="div">
-            Conecte sua carteira <ArrowOutwardTwoToneIcon fontSize="large" />
+            Connect your wallet <ArrowOutwardTwoToneIcon fontSize="large" />
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Ainda não possui uma carteira? Baixe a extensão <Link target="_blank" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=pt-br">Metamask</Link> e siga o <Link target="_blank" href="https://portaldobitcoin.uol.com.br/o-passo-a-passo-para-criar-e-usar-uma-carteira-metamask/">passo a passo</Link>.
+            Don't have a wallet yet? Download the extension <Link target="_blank" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=pt-br">Metamask</Link> and follow the <Link target="_blank" href="https://portaldobitcoin.uol.com.br/o-passo-a-passo-para-criar-e-usar-uma-carteira-metamask/">tutorial</Link>.
           </Typography>
         </CardContent>
       </Card>

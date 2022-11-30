@@ -129,7 +129,7 @@ interface IERC721Modified is IERC165 {
      *
      * Requirements:
      *
-     * - The `operator` cannot be the caller.
+     * - The `operator  ` cannot be the caller.
      *
      * Emits an {ApprovalForAll} event.
      */
@@ -795,7 +795,7 @@ contract SBT is ERC721URIStorageModified {
         owner = tx.origin; //msg.sender;
     }
 
-    function issueDegree(string memory _tokenURI, address _formando)
+    function issueDegree(string memory _tokenURI, address _graduate)
         external
         payable
         onlyOwner
@@ -813,7 +813,7 @@ contract SBT is ERC721URIStorageModified {
         newToken.owner = Collection(collection).getOwner();
         newToken.tokenURI = _tokenURI;
         newToken.tokenId = newItemId;
-        personToDegree[_formando] = newToken;
+        personToDegree[_graduate] = newToken;
         return newItemId;
     }
 

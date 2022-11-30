@@ -20,42 +20,33 @@ const items = [
   {
     href: '/',
     icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Perfil'
+    title: 'Profile'
   },
   {
-    // href: '/customers',
     href: '/collection',
     icon: (<UsersIcon fontSize="small" />),
-    title: 'Minhas Coleções'
+    title: 'My collections'
   },
   {
-    href: '/customers',
+    href: '/approve',
     icon: (<UserIcon fontSize="small" />),
-    title: 'Documentos em andamento'
+    title: 'Approve documents'
   },
   {
-    // href: '/products',
-    href: '/identification',
+    href: '/find',
     icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Identificação'
+    title: 'Find profiles'
   },
-
   {
-    // href: '/settings',
     href: '/settings',
     icon: (<CogIcon fontSize="small" />),
-    title: 'Configurações'
+    title: 'Settings'
   },
   {
     href: '/features',
     icon: (<LockIcon fontSize="small" />),
-    title: 'Novos Recursos'
+    title: 'Features'
   },
-  // {
-  //   href: '/register',
-  //   icon: (<UserAddIcon fontSize="small" />),
-  //   title: 'Register'
-  // },
   // {
   //   href: '/404',
   //   icon: (<XCircleIcon fontSize="small" />),

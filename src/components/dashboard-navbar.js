@@ -22,6 +22,7 @@ export const DashboardNavbar = (props) => {
     <>
       <DashboardNavbarRoot
         sx={{
+          
           left: {
             lg: 280
           },
@@ -33,6 +34,7 @@ export const DashboardNavbar = (props) => {
         <Toolbar
           disableGutters
           sx={{
+            backgroundColor: '#F3F4F6',
             minHeight: 64,
             left: 0,
             px: 2
@@ -52,12 +54,12 @@ export const DashboardNavbar = (props) => {
             </IconButton>
 
           </Tooltip>
-          <Tooltip title="Search">
+          {/* <Tooltip title="Search">
             <IconButton sx={{ ml: 1 }}>
               <SearchIcon fontSize="small" />
             </IconButton>
 
-          </Tooltip>
+          </Tooltip> */}
           <Box sx={{ flexGrow: 1 }} />
           <ConnectWeb3 />
 

@@ -1,10 +1,11 @@
 export const availableChains = {
   '1': 'Ethereum',
-  '5': 'Goerli',
   '137': 'Polygon',
-  '1337': 'Localhost',
+  // '1337': 'Localhost',
+  '2': 'Starknet',
   '43114': 'Avalanche',
   '11155111': 'Sepolia',
+  '5': 'Goerli',
 
 }
 

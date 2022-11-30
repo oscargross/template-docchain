@@ -1,12 +1,44 @@
 import { ethers, BigNumber } from "ethers";
 import { collectionBaseAddress } from "./props";
 import Collection from '../../artifacts/contracts/Docchain.sol/Collection.json'
+import SBT from '../../artifacts/contracts/Docchain.sol/SBT.json'
+
 import { create } from 'ipfs-http-client'
 
-export const getContract = async (addr, abi, provider) => {
-
+export const claimDoc = async (addr, provider, account, gasLimit) => {
   try {
-    const contract = new ethers.Contract(addr, abi, provider);
+
+    const contractInstance = await getContract({ addr, provider })
+    const obj = await contractInstance.personToDegree(account)
+    console.log(Number(obj.tokenId))
+    if (!obj.tokenURI) throw Error()
+
+    const message = await contractInstance.getMessageHash(account, Number(obj.tokenId), obj.tokenURI)
+    const signer = await provider.getSigner()
+    const signature = await signer.signMessage(ethers.utils.arrayify(message))
+
+    const transactionByDocchain = await getDocchainWallet(addr, provider, message, signature, gasLimit)
+    return transactionByDocchain
+    
+  } catch (error) {
+    console.error(error.message)
+    throw new Error('Error in blockchain calls')
+  }
+}
+
+const getDocchainWallet = async (addr, provider, message, signature, gasLimit) => {
+  const privateKey = process.env.NEXT_PUBLIC_PRIVATE_KEY_DOCCHAIN;
+  const wallet = new ethers.Wallet(privateKey, provider);
+
+  const contract = new ethers.Contract(addr, SBT.abi, wallet)
+  const transaction = await contract.connect(wallet).claimDegree(message, signature, { gasLimit })
+  return transaction
+}
+
+export const getContract = async ({ addr, provider, abi }) => {
+  const abiCall = abi ? abi : SBT.abi
+  try {
+    const contract = new ethers.Contract(addr, abiCall, provider);
     const signer = await provider.getSigner()
     const instance = await contract.connect(signer);
 
@@ -19,7 +51,7 @@ export const getContract = async (addr, abi, provider) => {
 
 export const getContractBase = async (chainId, provider) => {
   try {
-    const contract = await getContract(collectionBaseAddress[chainId], Collection.abi, provider)
+    const contract = await getContract({ addr: collectionBaseAddress[chainId], abi: Collection.abi, provider })
     return contract
   } catch (error) {
     return false
@@ -53,7 +85,8 @@ export const addIPFS = async (file) => {
 export const getFee = async (chainId, provider) => {
   const contractBase = await getContractBase(chainId, provider)
   const fee = await contractBase.getFee()
-  return(String(Number(fee)+1))
+  //  await contractBase.updateFee(ethers.utils.parseEther("0.02"), { gasLimit: 3000000 })
+  return (fee)
 }
 
 

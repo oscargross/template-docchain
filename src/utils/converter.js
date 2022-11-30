@@ -13,4 +13,4 @@ export const toHex = (num) => {
 };
 
 
-export const wordsError = (str) => `${str.split(' ').slice(0, 3).join(' ')} ...`
+export const wordsError = (str) => `${str.split(' ').slice(0, 4).join(' ')} ...`

@@ -17,7 +17,7 @@ const style = {
 };
 const fileTypes = ["JPG", "PNG", "GIF"];
 
-export default ({ create, open, handleOpen, sbt, setField, field, handleChangeFile, setCheck }) => {
+export default ({ create, open, handleOpen, sbt, setField, field, handleChangeFile, setCheck,fee, file}) => {
 
 
   return (
@@ -60,7 +60,14 @@ export default ({ create, open, handleOpen, sbt, setField, field, handleChangeFi
               />
             </Box>
             }
-            <Button disabled={!field && true} variant="contained" sx={{ m: 4 }} onClick={async () => await create()}>Create</Button>
+            {fee && <p style={{ fontSize: '13px'}}>
+              The current value of mint is: {fee} ETH </p>}
+            <Button
+              // disabled={(!field || !file) && true}
+              variant="contained" sx={{ m: 2 }}
+              onClick={async () => await create()}>
+              Create
+              </Button>
           </Box>
         </Box>
       </Modal>

@@ -33,11 +33,12 @@ export const Web3Provider = ({ children }) => {
     setConnection();
     setContractBase()
   }
+  const gasLimit = 1 * 10 ** 7
 
   // const ok = () => (!account || !Object.keys(availableChains).includes(chainId)) ? false : true
 
   return (
-    <Web3Context.Provider value={{ setProps, setChainId, setAccount, unsetProps, setContractBase, provider, account, chainId, connection, contractBase }}>
+    <Web3Context.Provider value={{ gasLimit,setProps, setChainId, setAccount, unsetProps, setContractBase, provider, account, chainId, connection, contractBase }}>
       {children}
     </Web3Context.Provider>
   )

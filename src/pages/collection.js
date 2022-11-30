@@ -9,10 +9,11 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { availableChains, hrefTransaction } from '../utils/props';
 import { amber } from '@mui/material/colors';
 import { wordsError } from '../utils/converter';
+import { getContractBase } from '../utils/ethers';
 
-import { getCollections } from './../services/firebase';
+import { getCollections, addCollection } from './../services/firebase';
 export default () => {
-  const { account, chainId, provider, contractBase } = useContext(Web3Context)
+  const { account, chainId, provider, contractBase, gasLimit } = useContext(Web3Context)
   const [collectionsRender, setCollectionsRender] = useState([])
   const [open, setOpen] = useState(false)
   const [openSnack, setOpenSnack] = useState(false)
@@ -28,6 +29,9 @@ export default () => {
 
   const getCollec = async () => {
     try {
+      // const aa = await getContractBase(chainId, provider)
+      // const vv = await aa.getCollectionsOfOwner(account)
+      // console.log(vv)
       const collections = await getCollections(account)
       setCollections(collections)
       setCollectionsRender(collections)
@@ -47,16 +51,30 @@ export default () => {
     setOpen(false)
     setOpenBackdrop(true);
     setMsgError()
+ 
     try {
-      const newCollection = await contractBase.createNewCollection(name)
+      const newCollection = await contractBase.createNewCollection(name, {
+        gasLimit
+      })
 
       const transaction = await provider.getTransaction(newCollection?.hash)
+
       setOpenBackdrop(false)
       setHash(newCollection?.hash)
       setOpen(false)
       const result = await transaction.wait();
-
       if (!result.status == 1) throw new Error('Transaction fail')
+
+      const newCollections = await contractBase.getCollectionsOfOwner(account)
+      const newAddressCollection = newCollections.filter(c => !collections.map(c => c.id).includes(c))[0]
+
+      await addCollection(newAddressCollection, {
+        name: name,
+        owner: account,
+        sbts: Number(0),
+        date: new Date(Date.now()).toLocaleString().split(',')[0]
+      })
+
       setTimeout(() => {
         getCollec()
       }, 400);
@@ -68,6 +86,7 @@ export default () => {
       setOpenSnack(true);
       setOpen(false)
       setOpenBackdrop(false)
+      setHash()
     }
   }
   const handleClose = (event, reason) => {
@@ -101,7 +120,13 @@ export default () => {
           Collections
         </title>
       </Head>
-      <ModalNewCollection setCheck={setCheck} createCollection={createCollection} handleOpen={handleOpen} open={open} field={name} setField={ setName} />
+      <ModalNewCollection
+        setCheck={setCheck}
+        create={createCollection}
+        handleOpen={handleOpen}
+        open={open}
+        field={name}
+        setField={setName} />
       <Box
         component="main"
         sx={{

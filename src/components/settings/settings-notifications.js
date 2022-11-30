@@ -64,7 +64,7 @@ export const SettingsNotifications = (props) => (
               control={<Checkbox />}
               label="Text Messages"
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={(
                 <Checkbox
                   color="primary"
@@ -72,7 +72,7 @@ export const SettingsNotifications = (props) => (
                 />
               )}
               label="Phone calls"
-            />
+            /> */}
           </Grid>
           <Grid
             item
@@ -104,7 +104,7 @@ export const SettingsNotifications = (props) => (
               control={<Checkbox />}
               label="Push Notifications"
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={(
                 <Checkbox
                   color="primary"
@@ -112,7 +112,7 @@ export const SettingsNotifications = (props) => (
                 />
               )}
               label="Phone calls"
-            />
+            /> */}
           </Grid>
         </Grid>
       </CardContent>
@@ -125,6 +125,7 @@ export const SettingsNotifications = (props) => (
         }}
       >
         <Button
+          disabled
           color="primary"
           variant="contained"
         >
