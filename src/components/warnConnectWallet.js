@@ -20,7 +20,7 @@ export const WarnConnectWallet = () => {
             Connect your wallet <ArrowOutwardTwoToneIcon fontSize="large" />
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Don't have a wallet yet? Download the extension <Link rel="noopener noreferrer" target="_blank" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=pt-br">Metamask</Link> and follow the <Link rel="noopener noreferrer" target="_blank" href="https://portaldobitcoin.uol.com.br/o-passo-a-passo-para-criar-e-usar-uma-carteira-metamask/">tutorial</Link>.
+            Don&apos;t have a wallet yet? Download the extension <Link rel="noopener noreferrer" target="_blank" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=pt-br">Metamask</Link> and follow the <Link rel="noopener noreferrer" target="_blank" href="https://portaldobitcoin.uol.com.br/o-passo-a-passo-para-criar-e-usar-uma-carteira-metamask/">tutorial</Link>.
           </Typography>
         </CardContent>
       </Card>

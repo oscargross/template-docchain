@@ -159,7 +159,7 @@ export default () => {
                     <Typography
                       sx={{ m: 1 }}
                       variant="h5"
-                    > It's SBTs
+                    > It&apos;s SBTs
                     </Typography>
                     <Typography
                       sx={{ m: 1 }}
@@ -183,7 +183,7 @@ export default () => {
                     <Typography
                       sx={{ m: 1 }}
                       variant="h5"
-                    > It's Collections
+                    > It&apos;s Collections
                     </Typography>
                     <Typography
                       sx={{ m: 1 }}
