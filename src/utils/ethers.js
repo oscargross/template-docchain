@@ -1,7 +1,7 @@
-import { ethers, BigNumber } from "ethers";
+import { ethers } from "ethers";
 import { collectionBaseAddress } from "./props";
-import Collection from '../../artifacts/contracts/Docchain.sol/Collection.json'
-import SBT from '../../artifacts/contracts/Docchain.sol/SBT.json'
+import Collection from './Collection.json'
+import SBT from './SBT.json'
 
 import { create } from 'ipfs-http-client'
 
@@ -19,7 +19,7 @@ export const claimDoc = async (addr, provider, account, gasLimit) => {
 
     const transactionByDocchain = await getDocchainWallet(addr, provider, message, signature, gasLimit)
     return transactionByDocchain
-    
+
   } catch (error) {
     console.error(error.message)
     throw new Error('Error in blockchain calls')

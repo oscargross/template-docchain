@@ -1,24 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
-import CardSBT from '../components/CardSBT';
-import { Box, Container, Grid, CircularProgress, Alert, Snackbar, Backdrop, Typography, CardContent, Card, Tooltip } from '@mui/material'
-import { getSBTs, addSBT, editCollection, getSBTsSign } from '../services/firebase';
+import { Box, Container, CircularProgress, Alert, Snackbar, Backdrop, Typography, CardContent, Card, Tooltip } from '@mui/material'
+import { getSBTsSign } from '../services/firebase';
 import { Web3Context } from '../contexts/web3-context';
-import { useRouter } from 'next/router';
-import { getContract, claimDoc } from '../utils/ethers';
-import SBT from '../../artifacts/contracts/Docchain.sol/SBT.json'
-import { CollectionsListToolbar } from '../components/collection/collection-list-toolbar';
-import ModalNewCollection from '../components/collection/collection-modal-new'
-import { addIPFS, getFee } from '../utils/ethers';
-import { ethers } from 'ethers';
-import { wordsError } from '../utils/converter';
 import { SBTsListResults } from '../components/collection/sbts-list-results';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { amber } from '@mui/material/colors';
 import { availableChains, hrefTransaction } from '../utils/props';
 
 export default () => {
-  const { account, chainId, provider, gasLimit } = useContext(Web3Context)
-  const router = useRouter()
+  const { account, chainId } = useContext(Web3Context)
 
   const [sbts, setSbts] = useState([])
   const [openBackdrop, setOpenBackdrop] = useState(false)
@@ -48,40 +38,6 @@ export default () => {
     setOpenSnack(false);
   }
 
-
-  const approve = async (contract, id) => {
-    setOpenBackdrop(true);
-    setMsgError()
-    setPath(id)
-    try {
-
-      const transaction = await claimDoc(contract, provider, account, gasLimit)
-
-      console.log("ddd", transaction)
-      setOpenBackdrop(false)
-      setHash(transaction?.hash)
-      // setOpen(false)
-      const result = await transaction.wait();
-      if (!result.status == 1) throw new Error('Transaction fail')
-
-      await editSBT(id)
-
-      setTimeout(() => {
-        getSbts()
-      }, 400);
-
-      setHash()
-      setOpenSnack(true);
-      setPath()
-    } catch (error) {
-      console.error(error?.message)
-      setMsgError(wordsError(error?.message))
-      setOpenSnack(true);
-      setOpenBackdrop(false)
-      setHash()
-      setPath()
-    }
-  }
 
   return (
     <>
@@ -154,8 +110,6 @@ export default () => {
                       variant="p"
                       sx={{
                         mb: 1,
-                        // alignItems: 'center',
-                        // display: 'flex',
                         cursor: 'pointer'
                       }}
                     >
@@ -182,11 +136,7 @@ export default () => {
             </Box>
           }
           <Box sx={{ mt: 3 }}>
-            <SBTsListResults sbts={sbts}
-              // toSign={true}
-              profile={true}
-              // approve={approve}
-              // disableButton={path}
+            <SBTsListResults sbts={sbts} profile={true}
             />
           </Box>
         </Container>
