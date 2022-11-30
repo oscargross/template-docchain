@@ -309,6 +309,7 @@ const Page = () => {
                   href="https://zalter.com?ref=devias-mk-react"
                   sx={{ color: '#15B79E' }}
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   zalter.com
                 </Box>

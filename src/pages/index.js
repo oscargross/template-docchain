@@ -159,7 +159,7 @@ export default () => {
                         cursor: 'pointer'
                       }}
                     >
-                      SBT: <a href={`https://ipfs.io/ipfs/${path}`} target={'_blank'}>{path.slice(0, 7) + '...'}</a>
+                      SBT: <a href={`https://ipfs.io/ipfs/${path}`} rel="noopener noreferrer" target={'_blank'}>{path.slice(0, 7) + '...'}</a>
                     </Typography>
                     <Typography
                       sx={{ display: 'flex' }}
@@ -167,7 +167,7 @@ export default () => {
                     >
                       Rede {availableChains[chainId]}
                       <Tooltip title={'Click to access transaction'} >
-                        <a href={hrefTransaction[chainId] + hash} target='_blank'>
+                        <a href={hrefTransaction[chainId] + hash} rel="noopener noreferrer" target='_blank'>
                           <Box
                             sx={{ marginLeft: '10px' }} >
                             <OpenInNewIcon

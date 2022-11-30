@@ -122,7 +122,7 @@ export const SBTsListResults = ({ sbts, toSign, approve, disableButton, profile 
                         cursor: 'pointer'
                       }}
                     >
-                      <a href={`https://ipfs.io/ipfs/${sbt.id}`} target={'_blank'}>{sbt.id.slice(0, 7) + '...'}</a>
+                      <a href={`https://ipfs.io/ipfs/${sbt.id}`} rel="noopener noreferrer" target={'_blank'}>{sbt.id.slice(0, 7) + '...'}</a>
                     </Box>
                   </TableCell>
                   <TableCell sx={{

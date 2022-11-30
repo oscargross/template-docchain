@@ -210,7 +210,7 @@ export default () => {
                     >
                       Rede {availableChains[chainId]}
                       <Tooltip title={'Click to access transaction'} >
-                        <a href={hrefTransaction[chainId] + hash} target='_blank'>
+                        <a href={hrefTransaction[chainId] + hash} rel="noopener noreferrer" target='_blank'>
                           <Box
                             sx={{ marginLeft: '10px' }} >
                             <OpenInNewIcon
