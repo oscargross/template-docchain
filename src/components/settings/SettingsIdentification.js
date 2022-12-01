@@ -13,7 +13,7 @@ export default () => {
   const [msgError, setMsgError] = useState()
   const [openBackdrop, setOpenBackdrop] = useState(false)
   const [loading, setLoading] = useState(false)
-  
+
   const getName = async () => {
     const nameAccount = await getNameByAddr(account)
     setName(nameAccount)
@@ -35,7 +35,7 @@ export default () => {
       getName()
       setNewName()
     } catch (error) {
-      console.log(error?.message)
+      console.error(error?.message)
       setMsgError(wordsError(error?.message))
       setOpenSnack(true);
 

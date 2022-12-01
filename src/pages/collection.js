@@ -31,7 +31,6 @@ export default () => {
     try {
       // const aa = await getContractBase(chainId, provider)
       // const vv = await aa.getCollectionsOfOwner(account)
-      // console.log(vv)
       const collections = await getCollections(account)
       setCollections(collections)
       setCollectionsRender(collections)
@@ -51,7 +50,7 @@ export default () => {
     setOpen(false)
     setOpenBackdrop(true);
     setMsgError()
- 
+
     try {
       const newCollection = await contractBase.createNewCollection(name, {
         gasLimit

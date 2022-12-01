@@ -27,7 +27,7 @@ export default () => {
       setSbts(sbts)
 
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
     }
   }
 

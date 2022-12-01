@@ -42,7 +42,7 @@ export default () => {
       setAddr(addr)
 
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
     }
   }
 
@@ -50,7 +50,6 @@ export default () => {
   }, [])
 
   const onChangeSearch = ({ target: { value } }) => {
-    console.log(addr, value)
     if (ethers.utils.isAddress(value)) {
       if (addr?.toLowerCase().trim() !== value.toLowerCase().trim()) {
         setErrorSearch(false)
