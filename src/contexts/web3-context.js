@@ -33,7 +33,7 @@ export const Web3Provider = ({ children }) => {
     setConnection();
     setContractBase()
   }
-  const gasLimit = 1 * 10 ** 7
+  const gasLimit = 1 * 10 ** 6
 
   // const ok = () => (!account || !Object.keys(availableChains).includes(chainId)) ? false : true
 

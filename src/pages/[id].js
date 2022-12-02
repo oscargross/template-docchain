@@ -39,7 +39,7 @@ export default () => {
   const getSbts = async () => {
     try {
 
-      const contract = await getContract({addr: router.query.id, provider})
+      const contract = await getContract({ addr: router.query.id, provider })
       setContractSBT(contract)
       const sbts = await getSBTs(router.query.id)
       setSbts(sbts)
@@ -105,7 +105,7 @@ export default () => {
         date: new Date(Date.now()).toLocaleString().split(',')[0],
         accepted: false
       })
-      await editCollection(router.query.id, sbts.length+1)
+      await editCollection(router.query.id, sbts.length + 1)
 
       setTimeout(() => {
         getSbts()
@@ -175,11 +175,11 @@ export default () => {
         <Container maxWidth={false}>
           <CollectionsListToolbar sbt={true} owner={owner} onChangeSearch={onChangeSearch} handleOpen={handleOpen} />
           {
-            hash && <Box sx={{ mt: 3, width: 'fit-content', }} >
+            hash &&
+            <Box sx={{ mt: 3, width: 'fit-content', }} >
               <Card sx={{ backgroundColor: amber[400] }}>
                 <Typography
-                  sx={{ m: 3 }}
-                  variant="p"
+                  sx={{ m: 1, textAlign: 'center', width: '100%' }}
                 >
                   The transaction is running...
                 </Typography>
